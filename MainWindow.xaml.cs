@@ -34,14 +34,7 @@ namespace BiglovAutoservice
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
         {
-            if (Manager.MainFrame.CanGoBack)
-            {
-                BtnBack.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                BtnBack.Visibility = Visibility.Hidden;
-            }
+           
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BiglovAutoservice"
         mc:Ignorable="d"
-        Title="BiglovAutoservice" Height="450" Width="800" FontFamily="Tm Cen MT" Icon="res/service_logo.png">
+        Title="BiglovAutoservice" Height="615" Width="800" FontFamily="Tm Cen MT" Icon="res/service_logo.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
@@ -15,6 +15,5 @@
         <Image Source="res/service_logo.png" HorizontalAlignment="Left"></Image>
         <TextBlock Text="Услуги автосервиса" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         <Frame Grid.Row="1" Name="MainFrame" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden"></Frame>
-        <Button Content="Назад" Name="BtnBack" HorizontalAlignment="Right" Margin="5" Click="BtnBack_Click"></Button>
     </Grid>
 </Window>
