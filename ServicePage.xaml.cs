@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Shapes; 
 
 namespace BiglovAutoservice
 {
@@ -20,34 +20,33 @@ namespace BiglovAutoservice
     /// </summary>
     public partial class ServicePage : Page
     {
-
         private void UpdateServices()
         {
             var currentServices = BiglovAutoserviceEntities.GetContext().Service.ToList();
 
             if (ComboType.SelectedIndex == 0)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 0 && s.Discount <= 100)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.0 && s.Discount <= 1)).ToList();
             }
             if (ComboType.SelectedIndex == 1)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 0 && s.Discount < 5)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.0 && s.Discount < 0.05)).ToList();
             }
             if (ComboType.SelectedIndex == 2)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 5 && s.Discount < 15)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.05 && s.Discount < 0.15)).ToList();
             }
             if (ComboType.SelectedIndex == 3)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 15 && s.Discount < 30)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.15 && s.Discount < 0.30)).ToList();
             }
             if (ComboType.SelectedIndex == 4)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 30 && s.Discount < 70)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.30 && s.Discount < 0.70)).ToList();
             }
             if (ComboType.SelectedIndex == 5)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 70 && s.Discount <= 100)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.70 && s.Discount <= 1)).ToList();
             }
 
             currentServices = currentServices.Where(s => s.Title.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
@@ -78,7 +77,7 @@ namespace BiglovAutoservice
 
         private void Btn1_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new AddEditPage());
+            Manager.MainFrame.Navigate(new AddEditPage(null));
         }
 
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -99,6 +98,23 @@ namespace BiglovAutoservice
         private void RButtonDown_Checked(object sender, RoutedEventArgs e)
         {
             UpdateServices();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage(null));
+        }
+        private void EditButton_Click(Object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new AddEditPage((sender as Button).DataContext as Service));
+        }
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                BiglovAutoserviceEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                UpdateServices();
+            }
         }
     }
 }
