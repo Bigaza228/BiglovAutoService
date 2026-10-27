@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Windows;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,6 +76,15 @@ namespace BiglovAutoservice
             else
             {
                 string[] start = s.Split(new char[] { ':' });
+                int CheckStart1, CheckStart2;
+                int.TryParse(start[0], out CheckStart1);
+                int.TryParse(start[1], out CheckStart2);
+                if (CheckStart1 > 23 || CheckStart2 > 60)
+                {
+                    MessageBox.Show("Ошибка, некорректное время");
+                    TBStart.Text = "";
+                    return;
+                }
                 int startHour = Convert.ToInt32(start[0].ToString()) * 60;
                 int startMin = 0;
                 if (!int.TryParse(start[1], out startMin)) return;
@@ -83,7 +94,13 @@ namespace BiglovAutoservice
 
                 int EndHour = sum / 60;
                 int EndMin = sum % 60;
-                s = EndHour.ToString() + ":" + EndMin.ToString();
+                if(EndHour > 23)
+                {
+                    EndHour = EndHour - 24;
+                }
+                string StrEndHour = (EndHour < 10) ? "0" + EndHour.ToString() : EndHour.ToString();
+                string StrEndMin = (EndMin < 10) ? "0" + EndMin.ToString() : EndMin.ToString();
+                s = StrEndHour + ":" + StrEndMin;
                 TBEnd.Text = s;
             }
         }
