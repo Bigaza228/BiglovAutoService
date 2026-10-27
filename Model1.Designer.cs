@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "D:\Documents\СТУДЕНТЫ\BiglovAzik\BiglovAutoService\BiglovAutoservice\BiglovModel.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\student\Source\Repos\Bigaza228\BiglovAutoService\Model1.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

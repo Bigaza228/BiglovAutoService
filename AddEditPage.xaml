@@ -32,7 +32,7 @@
         <TextBox Grid.Column="1" Grid.Row="0" Height="28" Margin="0,0,0,12" VerticalContentAlignment="Center" Text="{Binding Title}"/>
         <TextBox Grid.Column="1" Grid.Row="1" Height="28" Margin="0,0,0,12" VerticalContentAlignment="Center" Text="{Binding Cost}"/>
         <TextBox Grid.Column="1" Grid.Row="2" Height="28" Margin="0,0,0,12" VerticalContentAlignment="Center" Text="{Binding DurationInSeconds}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Height="28" Margin="0,0,0,12" VerticalContentAlignment="Center" Text="{Binding Discount}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Height="28" Margin="0,0,0,12" VerticalContentAlignment="Center" Text="{Binding DiscountInt}"/>
 
         <Button Name="SaveButton" 
             Content="Сохранить" 

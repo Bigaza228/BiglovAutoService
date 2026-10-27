@@ -22,7 +22,7 @@ namespace BiglovAutoservice
     {
         private void UpdateServices()
         {
-            var currentServices = BiglovAutoserviceEntities.GetContext().Service.ToList();
+            var currentServices = BiglovAutoServiceEntities.GetContext().Service.ToList();
 
             if (ComboType.SelectedIndex == 0)
             {
@@ -75,7 +75,7 @@ namespace BiglovAutoservice
         public ServicePage()
         {
             InitializeComponent();
-            var currentServices = BiglovAutoserviceEntities.GetContext().Service.ToList();
+            var currentServices = BiglovAutoServiceEntities.GetContext().Service.ToList();
             ServiceListView.ItemsSource = currentServices;
 
             ComboType.SelectedIndex = 0;
@@ -199,7 +199,7 @@ namespace BiglovAutoservice
         {
             if (Visibility == Visibility.Visible)
             {
-                BiglovAutoserviceEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                BiglovAutoServiceEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
                 UpdateServices();
             }
         }
@@ -208,7 +208,7 @@ namespace BiglovAutoservice
         {
             var currentService = (sender as Button).DataContext as Service;
 
-            var currentClientService = BiglovAutoserviceEntities.GetContext().ClientService.Include("Service").ToList();
+            var currentClientService = BiglovAutoServiceEntities.GetContext().ClientService.Include("Service").ToList();
 
             currentClientService = currentClientService.Where(p => p.ServiceID == currentService.ID).ToList();
             if (currentClientService.Count != 0)
@@ -221,10 +221,10 @@ namespace BiglovAutoservice
                 {
                     try
                     {
-                        BiglovAutoserviceEntities.GetContext().Service.Remove(currentService);
-                        BiglovAutoserviceEntities.GetContext().SaveChanges();
+                        BiglovAutoServiceEntities.GetContext().Service.Remove(currentService);
+                        BiglovAutoServiceEntities.GetContext().SaveChanges();
 
-                        ServiceListView.ItemsSource = BiglovAutoserviceEntities.GetContext().Service.ToList();
+                        ServiceListView.ItemsSource = BiglovAutoServiceEntities.GetContext().Service.ToList();
                         UpdateServices();
                     }
                     catch (Exception ex)
@@ -248,6 +248,11 @@ namespace BiglovAutoservice
         private void PageListBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ChangePage(0, Convert.ToInt32(PageListBox.SelectedItem.ToString()) - 1);
+        }
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new SingUpPage((sender as Button).DataContext as Service));
         }
     }
 }

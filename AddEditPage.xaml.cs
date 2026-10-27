@@ -42,21 +42,23 @@ namespace BiglovAutoservice
             if (string.IsNullOrWhiteSpace(_currentService.Discount.ToString()))
                 errors.AppendLine("Укажите скидку");
 
-            if (string.IsNullOrWhiteSpace(_currentService.DurationInSeconds))
+            if (_currentService.DurationInSeconds == 0)
                 errors.AppendLine("Укажите длительность услуги");
+            if (_currentService.DurationInSeconds > 240)
+                errors.AppendLine("Длительность услуги не может быть больше 240 минут");
 
-            if(errors.Length > 0)
+            if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
                 return; 
             }
             if(_currentService.ID == 0)
             {
-                BiglovAutoserviceEntities.GetContext().Service.Add(_currentService);
+                BiglovAutoServiceEntities.GetContext().Service.Add(_currentService);
             }
             try
             {
-                BiglovAutoserviceEntities.GetContext().SaveChanges();
+                BiglovAutoServiceEntities.GetContext().SaveChanges();
                 MessageBox.Show("Информация сохранена");
                 Manager.MainFrame.GoBack();
             } catch (Exception ex)

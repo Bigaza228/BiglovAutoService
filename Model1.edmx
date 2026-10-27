@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище BiglovAutoserviceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище BiglovAutoServiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AttachedProduct">
           <Key>
             <PropertyRef Name="MainProductID" />
@@ -98,9 +98,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MainImagePath" Type="nvarchar" MaxLength="1000" />
-          <Property Name="DurationInSeconds" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DurationInSeconds" Type="int" Nullable="false" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Discount" Type="float" />
+          <Property Name="Discount" Type="float" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ServicePhoto">
@@ -283,7 +283,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище BiglovAutoserviceModelContainer">
+        <EntityContainer Name="Хранилище BiglovAutoServiceModelContainer">
           <EntitySet Name="AttachedProduct" EntityType="Self.AttachedProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientService" EntityType="Self.ClientService" Schema="dbo" store:Type="Tables" />
@@ -354,7 +354,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BiglovAutoserviceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BiglovAutoServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
@@ -458,9 +458,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MainImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="DurationInSeconds" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DurationInSeconds" Type="Int32" Nullable="false" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Discount" Type="Double" />
+          <Property Name="Discount" Type="Double" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ClientService" Relationship="Self.FK_ClientService_Service" FromRole="Service" ToRole="ClientService" />
           <NavigationProperty Name="ServicePhoto" Relationship="Self.FK_ServicePhoto_Service" FromRole="Service" ToRole="ServicePhoto" />
@@ -599,7 +599,7 @@
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BiglovAutoserviceEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BiglovAutoServiceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="ClientService" EntityType="Self.ClientService" />
           <EntitySet Name="DocumentByService" EntityType="Self.DocumentByService" />
@@ -661,9 +661,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище BiglovAutoserviceModelContainer" CdmEntityContainer="BiglovAutoserviceEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BiglovAutoServiceModelContainer" CdmEntityContainer="BiglovAutoServiceEntities">
           <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.Client">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -679,7 +679,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClientService">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.ClientService">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.ClientService">
               <MappingFragment StoreEntitySet="ClientService">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
@@ -690,7 +690,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocumentByService">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.DocumentByService">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.DocumentByService">
               <MappingFragment StoreEntitySet="DocumentByService">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ClientServiceID" ColumnName="ClientServiceID" />
@@ -699,7 +699,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gender">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.Gender">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -707,7 +707,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Manufacturer">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.Manufacturer">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.Manufacturer">
               <MappingFragment StoreEntitySet="Manufacturer">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -716,7 +716,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.Product">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -729,7 +729,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductPhoto">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.ProductPhoto">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.ProductPhoto">
               <MappingFragment StoreEntitySet="ProductPhoto">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -738,7 +738,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductSale">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.ProductSale">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.ProductSale">
               <MappingFragment StoreEntitySet="ProductSale">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
@@ -749,7 +749,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Service">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.Service">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.Service">
               <MappingFragment StoreEntitySet="Service">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -762,7 +762,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ServicePhoto">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.ServicePhoto">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.ServicePhoto">
               <MappingFragment StoreEntitySet="ServicePhoto">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
@@ -771,7 +771,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tag">
-            <EntityTypeMapping TypeName="BiglovAutoserviceModel.Tag">
+            <EntityTypeMapping TypeName="BiglovAutoServiceModel.Tag">
               <MappingFragment StoreEntitySet="Tag">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -779,7 +779,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AttachedProduct" TypeName="BiglovAutoserviceModel.AttachedProduct" StoreEntitySet="AttachedProduct">
+          <AssociationSetMapping Name="AttachedProduct" TypeName="BiglovAutoServiceModel.AttachedProduct" StoreEntitySet="AttachedProduct">
             <EndProperty Name="Product">
               <ScalarProperty Name="ID" ColumnName="MainProductID" />
             </EndProperty>
@@ -787,7 +787,7 @@
               <ScalarProperty Name="ID" ColumnName="AttachedProductID" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="TagOfClient" TypeName="BiglovAutoserviceModel.TagOfClient" StoreEntitySet="TagOfClient">
+          <AssociationSetMapping Name="TagOfClient" TypeName="BiglovAutoServiceModel.TagOfClient" StoreEntitySet="TagOfClient">
             <EndProperty Name="Client">
               <ScalarProperty Name="ID" ColumnName="ClientID" />
             </EndProperty>

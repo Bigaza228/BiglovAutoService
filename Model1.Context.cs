@@ -13,18 +13,19 @@ namespace BiglovAutoservice
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BiglovAutoserviceEntities : DbContext
+    public partial class BiglovAutoServiceEntities : DbContext
     {
-        private static BiglovAutoserviceEntities _context;
-        public static BiglovAutoserviceEntities GetContext()
+        public BiglovAutoServiceEntities()
+            : base("name=BiglovAutoServiceEntities")
+        {
+        }
+
+        private static BiglovAutoServiceEntities _context;
+        public static BiglovAutoServiceEntities GetContext()
         {
             if(_context == null)
-                _context = new BiglovAutoserviceEntities();
+                _context = new BiglovAutoServiceEntities();
             return _context;
-        }
-        public BiglovAutoserviceEntities()
-            : base("name=BiglovAutoserviceEntities")
-        {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
