@@ -26,7 +26,7 @@ namespace BiglovAutoservice
 
             if (ComboType.SelectedIndex == 0)
             {
-                currentServices = currentServices.Where(s => (s.Discount >= 0.0 && s.Discount <= 1 || s.Discount == null)).ToList();
+                currentServices = currentServices.Where(s => (s.Discount >= 0.0 && s.Discount <= 1)).ToList();
             }
             if (ComboType.SelectedIndex == 1)
             {

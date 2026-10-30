@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -79,7 +78,7 @@ namespace BiglovAutoservice
                 int CheckStart1, CheckStart2;
                 int.TryParse(start[0], out CheckStart1);
                 int.TryParse(start[1], out CheckStart2);
-                if (CheckStart1 > 23 || CheckStart2 > 60)
+                if (CheckStart1 > 23 || CheckStart2 >= 60)
                 {
                     MessageBox.Show("Ошибка, некорректное время");
                     TBStart.Text = "";

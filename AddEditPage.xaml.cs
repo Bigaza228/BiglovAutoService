@@ -52,18 +52,28 @@ namespace BiglovAutoservice
                 MessageBox.Show(errors.ToString());
                 return; 
             }
-            if(_currentService.ID == 0)
+            var allService = BiglovAutoServiceEntities.GetContext().Service.ToList();
+            allService = allService.Where(p => p.Title == _currentService.Title).ToList();
+            if(allService.Count == 0)
             {
-                BiglovAutoServiceEntities.GetContext().Service.Add(_currentService);
+                if (_currentService.ID == 0)
+                {
+                    BiglovAutoServiceEntities.GetContext().Service.Add(_currentService);
+                }
+                try
+                {
+                    BiglovAutoServiceEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Информация сохранена");
+                    Manager.MainFrame.GoBack();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
             }
-            try
+            else
             {
-                BiglovAutoServiceEntities.GetContext().SaveChanges();
-                MessageBox.Show("Информация сохранена");
-                Manager.MainFrame.GoBack();
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("Уже существует такая услуга");
             }
         }
     }
