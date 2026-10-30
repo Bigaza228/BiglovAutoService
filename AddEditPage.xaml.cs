@@ -53,7 +53,7 @@ namespace BiglovAutoservice
                 return; 
             }
             var allService = BiglovAutoServiceEntities.GetContext().Service.ToList();
-            allService = allService.Where(p => p.Title == _currentService.Title).ToList();
+            allService = allService.Where(p => p.Title == _currentService.Title && p.ID != _currentService.ID).ToList();
             if(allService.Count == 0)
             {
                 if (_currentService.ID == 0)

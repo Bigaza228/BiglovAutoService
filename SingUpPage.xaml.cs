@@ -25,7 +25,7 @@ namespace BiglovAutoservice
         public SingUpPage(Service SelectedService)
         {
             InitializeComponent();
-            if(SelectedService != null)
+            if (SelectedService != null)
                 this._currentService = SelectedService;
             DataContext = _currentService;
 
@@ -45,7 +45,7 @@ namespace BiglovAutoservice
                 errors.AppendLine("Укажите дату услуги");
             if (TBStart.Text == "")
                 errors.AppendLine("Укажите время начала услуги");
-            if(errors.Length > 0)
+            if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
                 return;
@@ -53,15 +53,16 @@ namespace BiglovAutoservice
             _currentClientSerevice.ClientID = ComboClient.SelectedIndex + 1;
             _currentClientSerevice.ServiceID = _currentService.ID;
             _currentClientSerevice.StartTime = Convert.ToDateTime(StartDate.Text + " " + TBStart.Text);
-            
-            if(_currentClientSerevice.ID == 0)
+
+            if (_currentClientSerevice.ID == 0)
                 BiglovAutoServiceEntities.GetContext().ClientService.Add(_currentClientSerevice);
             try
             {
                 BiglovAutoServiceEntities.GetContext().SaveChanges();
                 MessageBox.Show("Информация сохранена");
                 Manager.MainFrame.GoBack();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
@@ -70,6 +71,19 @@ namespace BiglovAutoservice
         private void TBStart_TextChanged(object sender, TextChangedEventArgs e)
         {
             string s = TBStart.Text;
+            if (s.Any(c => !char.IsDigit(c) && c != ':'))
+            {
+                MessageBox.Show("В дате могут быть только цифры и двоеточия!");
+                TBStart.Text = "";
+            }
+            if (s.Length == 3)
+            {
+                if (s[2] != ':')
+                {
+                    MessageBox.Show("после часов должно идти \":\"");
+                    TBStart.Text = "";
+                }
+            }
             if (s.Length < 3 || !s.Contains(':'))
                 TBEnd.Text = "";
             else
@@ -77,6 +91,7 @@ namespace BiglovAutoservice
                 string[] start = s.Split(new char[] { ':' });
                 int CheckStart1, CheckStart2;
                 int.TryParse(start[0], out CheckStart1);
+
                 int.TryParse(start[1], out CheckStart2);
                 if (CheckStart1 > 23 || CheckStart2 >= 60)
                 {
@@ -84,16 +99,17 @@ namespace BiglovAutoservice
                     TBStart.Text = "";
                     return;
                 }
-                int startHour = Convert.ToInt32(start[0].ToString()) * 60;
+                int startHour;
+                if (!int.TryParse(start[0], out startHour)) return;
+                startHour = startHour * 60;
                 int startMin = 0;
                 if (!int.TryParse(start[1], out startMin)) return;
-
 
                 int sum = startHour + startMin + _currentService.DurationInSeconds;
 
                 int EndHour = sum / 60;
                 int EndMin = sum % 60;
-                if(EndHour > 23)
+                if (EndHour > 23)
                 {
                     EndHour = EndHour - 24;
                 }

@@ -36,7 +36,7 @@ namespace BiglovAutoservice
             }
             set
             {
-                Discount = value / 100;
+                Discount = value / 100.0;
             }
         }
         public string Description { get; set; }
@@ -65,11 +65,11 @@ namespace BiglovAutoservice
             {
                 if(Discount > 0)
                 {
-                    return ((decimal)Cost - (decimal)Cost * (decimal)Discount / 100).ToString();
+                    return Math.Round(((decimal)Cost - (decimal)Cost * (decimal)Discount), 2).ToString();
                 }
                 else
                 {
-                    return ((decimal)Cost).ToString();
+                    return Math.Round(((decimal)Cost), 2).ToString();
                 }
             }
         }
